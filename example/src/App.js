@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-
-import PageWithLocalStore from './PageWithLocalStore/index.js';
+import {connect } from 'react-redux';
+import PageWithLocalStore from './PageWithLocalStore';
 
 class App extends Component {
 
@@ -20,9 +20,23 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
+        <div>
+          <p>global counter: {this.props.counter}</p>
+        </div>
+        <div>
+          <button onClick={() => {this.setState({showPageWithLocalStore: true})}}>show local</button>
+          <button onClick={() => {this.setState({showPageWithLocalStore: false})}}>remove local</button>
+        </div>
+        {this.state.showPageWithLocalStore && 
+          <PageWithLocalStore />
+        }
       </div>
     );
   }
 }
 
-export default App;
+export default connect((state) => {
+  return {
+    counter: state.counter
+  }
+})(App);

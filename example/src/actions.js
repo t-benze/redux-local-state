@@ -9,3 +9,12 @@ export function incrementCounter() {
     };
 }
 
+export function incrementCounterAsync() {
+    return function (dispatch, getState) {
+        setTimeout(() => {
+            dispatch({
+                type: INCREMENT_COUNTER
+            })
+        }, 500);
+    }
+}

@@ -15,48 +15,54 @@ import {
 } from "./actions";
 
 import getLocalStoreId from './localStoreId';
+import {getLocalStore} from './reducer';
 
-function getLocalStore(state, localStoreId) {
-    return state.local[localStoreId];
-}
+// function getLocalStoreProps(
+//     store,
+//     localStoreId,
+//     localStoreConfig
+// ) {
 
-function getLocalStoreProps(
-    store,
-    localStoreId,
-    localStoreConfig
-) {
-    function localGetState() {
-        return getLocalStore(store.getState(), localStoreId).state;
-    }
+//     function localGetState() {
+//         return getLocalStore(store.getState(), localStoreId).state;
+//     }
 
-    function localDispatch(action) {
-        // TODO: properly handel global middleware like redux thunk
-        if (typeof action === "function") {
-            return store.dispatch(action.bind(null, localDispatch, localGetState));
-        } else {
-            // this.localDispatch(action);
-            return store.dispatch(dispatchLocalAction(localStoreId, action));
-        }
-    }
+//     function localDispatch(action) {
+//         // TODO: properly handel global middleware like redux thunk
+//         // if (typeof action === "function") {
+//         //     return store.dispatch(action.bind(null, localDispatch, localGetState));
+//         // } else {
+//         //     // this.localDispatch(action);
+            
+//         // }
+//         // return getLocalStore(store.getState(), localStoreId).dispatch(action);
+//         return store.dispatch(dispatchLocalAction(localStoreId, action));
+//         // if(typeof action.type === 'undefined') {
+//         //     // not a standard action, might be handled by some middlewares
+//         //     return store.dispatch(action);
+//         // } else {
+//         //     return store.dispatch(dispatchLocalAction(localStoreId, action));
+//         // }
+//     }
 
-    // TODO: handle mapDispatchToProps variants
-    const localMapDispatchToProps = localStoreConfig.mapDispatchToProps || {};
-    const modifiedMapDispatchToProps = {};
-    Object.keys(localMapDispatchToProps).forEach(key => {
-        if (localMapDispatchToProps.hasOwnProperty(key)) {
-            const origin = localMapDispatchToProps[key];
-            modifiedMapDispatchToProps[key] = (...args) => {
-                const action = origin(...args);
-                return localDispatch(action);
-            };
-        }
-    });
+//     // TODO: handle mapDispatchToProps variants
+//     const localMapDispatchToProps = localStoreConfig.mapDispatchToProps || {};
+//     const modifiedMapDispatchToProps = {};
+//     Object.keys(localMapDispatchToProps).forEach(key => {
+//         if (localMapDispatchToProps.hasOwnProperty(key)) {
+//             const origin = localMapDispatchToProps[key];
+//             modifiedMapDispatchToProps[key] = (...args) => {
+//                 const action = origin(...args);
+//                 return localDispatch(action);
+//             };
+//         }
+//     });
 
-    return {
-        ...modifiedMapDispatchToProps,
-        localStoreId: localStoreId
-    };
-}
+//     return {
+//         ...modifiedMapDispatchToProps,
+//         $$localStoreId: localStoreId
+//     };
+// }
 
 export default function connectLocal(mapStateToProps, mapDispatchToProps, mergeProps, localStoreConfig, connectOptions = {}) {
     const localMapStateToProps = localStoreConfig.mapStateToProps || (() => ({}));
@@ -96,7 +102,7 @@ export default function connectLocal(mapStateToProps, mapDispatchToProps, mergeP
             mapDispatchToProps,
             mergeProps,
             connectOptions,
-        )(wrappedComponent);
+        )(WrappedComponent);
 
         class LocalConnect extends PureComponent {
             constructor(props, context) {
@@ -119,7 +125,8 @@ export default function connectLocal(mapStateToProps, mapDispatchToProps, mergeP
                         this.setState({
                             isLocalStoreReady: true
                         });
-                        this.unsubscribe;
+                        this.unsubscribe();
+
                     }
                 })
             }
@@ -136,11 +143,16 @@ export default function connectLocal(mapStateToProps, mapDispatchToProps, mergeP
 
             render() {
                 if (this.state.isLocalStoreReady) {
-                    return createElement(ConnectedComponent, getLocalStoreProps(this.store, this.localStoreId, localStoreConfig))
+                    return createElement(ConnectedComponent, {$$localStoreId: this.localStoreId})
                 } else {
                     return null;
                 }
             }
         }
+
+        LocalConnect.contextTypes = {
+            [storeKey]: PropTypes.object,
+        }
+        return LocalConnect;
     }
 }

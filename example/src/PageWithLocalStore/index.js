@@ -1,27 +1,31 @@
 import React, { PureComponent } from 'react';
-import {connectLocal} from 'redux-local-store';
+import connectLocal from '../lib';
 
-import {incrementCounter} from '../actions';
-import {incrementLocalCounter} from './localActions';
+import { incrementCounter, incrementCounterAsync } from '../actions';
+import { incrementLocalCounter, incrementLocalCounterAsync, adapter } from './localActions';
+import localReducer from './localReducer';
 
 
-class PageWithLocalStore extends PureComponent {
-    
+class ComponentWithLocalStore extends PureComponent {
+
     render() {
         return (
             <div>
-                <h1>Page With Local Store</h1>
+                <h1>Component With Local Store</h1>
                 <div>
-                    <p>Props:</p>
-                <p>
-                    {this.props.toString()}
-                </p>
+                    <p>Global Counter:</p>
+                    <p>{this.props.globalCounter}</p>
+                    <p>Local Counter:</p>
+                    <p>{this.props.localCounter}</p>
                 </div>
                 <div>
-                    <button>dispatch global action</button>
-                    <button>dispatch local action</button>
+                    <button onClick={() => { this.props.incrementCounter() }}>increment gloal counter</button>
+                    <button onClick={() => { this.props.incrementCounterAsync() }}>increment global counter async</button>
                 </div>
-                
+                <div>
+                    <button onClick={() => { this.props.incrementLocalCounter() }}>increment local counter</button>
+                    <button onClick={() => { this.props.incrementLocalCounterAsync(this.props.$$localStoreId) }}>increment local counter async</button>
+                </div>
             </div>
         )
     }
@@ -31,13 +35,17 @@ const mapStateToProps = (state) => ({
     globalCounter: state.counter
 });
 
-export default connectLocal(mapStateToProps, {incrementCounter}, undefined, {
-    mapStateToProps: (state) => {
-        return {
-            localCounter: state.counter
-        }
-    },
-    mapDispatchToProps: {
-        incrementLocalCounter
-    }
-})(PageWithLocalStore);
+export default connectLocal(mapStateToProps, {
+    incrementCounter, incrementCounterAsync, incrementLocalCounterAsync
+    
+}, undefined, {
+        mapStateToProps: (state) => {
+            return {
+                localCounter: state.counter
+            }
+        },
+        mapDispatchToProps: {
+            incrementLocalCounter
+        },
+        reducer: localReducer
+    })(ComponentWithLocalStore);

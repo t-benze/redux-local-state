@@ -11,6 +11,7 @@ var paths = require('./paths');
 
 
 
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 var publicPath = '/';
@@ -79,8 +80,7 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      'redux-local-store': paths.libPath
-    }
+    },
   },
   
   module: {
@@ -125,7 +125,8 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: paths.appSrc,
+        // include: paths.rootSrcPath,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
           
