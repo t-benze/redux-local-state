@@ -1,7 +1,7 @@
 {
-  "name": "redux-local-store",
+  "name": "redux-local-state",
   "version": "0.1.0",
-  "description": "Allow to create local store that lives with React component in redux store",
+  "description": "Allow to create local state that lives with React component in redux store",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

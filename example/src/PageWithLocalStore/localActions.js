@@ -3,40 +3,36 @@ export const SET_LOCAL_COUNTER = 'SET_LOCAL_COUNTER';
 
 import { dispatchLocalAction, getLocalStore } from '../lib';
 
-export function incrementLocalCounter() {
-    return {
+
+export function incrementLocalCounter(localStoreId) {
+    return dispatchLocalAction(localStoreId, {
         type: INCREMENT_LOCAL_COUNTER
-    };
+    });
 }
 
-export function setLocalCounter(count) {
-    return {
-        type: SET_LOCAL_COUNTER,
-        count: count
-    };
-}
-
-export function adapter(localStoreId, internalAction) {
-    return function (dispatch, getState) {
-        const thunk = internalAction();
-        thunk((action) => {
-            dispatch(dispatchLocalAction(localStoreId, action))
-        }, () => getLocalStore(getState(), localStoreId));
-    }
-}
-
-// export function incrementLocalCounterAsync(localStoreId, byNumber = 2) {
-//     // const internalAction = () => incrementLocalCounterInternal(byNumber);
-//     return adapter(localStoreId, () => {
-//         return incrementLocalCounterInternal(byNumber);
-//     });
-// }
-
-export function incrementLocalCounterAsync(byNumber) {
+export function incrementLocalCounterAsync(localStoreId) {
     return function (dispatch, getState) {
         setTimeout(() => {
-            const localState = getState();
-            dispatch(setLocalCounter(10 * byNumber));
+            dispatch(dispatchLocalAction(localStoreId, {
+                type: INCREMENT_LOCAL_COUNTER
+            }));
         }, 500);
     }
 }
+
+
+// export function incrementLocalCounter(localStoreId) {
+//     return dispatchLocalAction(localStoreId, {
+//         type: INCREMENT_LOCAL_COUNTER
+//     });
+// }
+
+// export function incrementLocalCounterAsync(localStoreId) {
+//     return function (dispatch, getState) {
+//         setTimeout(() => {
+//             dispatch(dispatchLocalAction(localStoreId, {
+//                 type: INCREMENT_LOCAL_COUNTER
+//             }));
+//         }, 500);
+//     }
+// }

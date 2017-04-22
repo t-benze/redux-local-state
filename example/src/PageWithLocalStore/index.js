@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import connectLocal from '../lib';
 
 import { incrementCounter, incrementCounterAsync } from '../actions';
-import { incrementLocalCounter, incrementLocalCounterAsync, adapter } from './localActions';
+import { incrementLocalCounter, incrementLocalCounterAsync } from './localActions';
 import localReducer from './localReducer';
 
 
@@ -23,7 +23,7 @@ class ComponentWithLocalStore extends PureComponent {
                     <button onClick={() => { this.props.incrementCounterAsync() }}>increment global counter async</button>
                 </div>
                 <div>
-                    <button onClick={() => { this.props.incrementLocalCounter() }}>increment local counter</button>
+                    <button onClick={() => { this.props.incrementLocalCounter(this.props.$$localStoreId) }}>increment local counter</button>
                     <button onClick={() => { this.props.incrementLocalCounterAsync(this.props.$$localStoreId) }}>increment local counter async</button>
                 </div>
             </div>
@@ -36,8 +36,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connectLocal(mapStateToProps, {
-    incrementCounter, incrementCounterAsync, incrementLocalCounterAsync
-    
+    incrementCounter, incrementCounterAsync, incrementLocalCounterAsync, incrementLocalCounter
 }, undefined, {
         mapStateToProps: (state) => {
             return {
