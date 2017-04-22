@@ -54,7 +54,7 @@ function getLocalStoreProps(
 
     return {
         ...modifiedMapDispatchToProps,
-        localStoreId: localStoreId
+        $$localStoreId: localStoreId
     };
 }
 

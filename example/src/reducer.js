@@ -12,6 +12,10 @@ function counter(state = initialCounterState, action) {
     }
 }
 
+export function getLocalStateStore(state) {
+    return state.localReducer;
+}
+
 export default {
     counter,
     localReducer

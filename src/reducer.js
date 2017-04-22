@@ -11,12 +11,12 @@ export default function(state = initialState, action) {
                 }
             }
         case LOCAL_DISPATCH_ACTION:
-            const localStore = state[action.id];
-            const newLocalState = localStore.reducer(localStore.state, action.localAction);
+            const localState = state[action.id];
+            const newLocalState = localState.reducer(localState.state, action.localAction);
             return {
                 ...state,
                 [action.id]: {
-                    reducer: localStore.reducer,
+                    reducer: localState.reducer,
                     state: newLocalState
                 }
             };

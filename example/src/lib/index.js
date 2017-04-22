@@ -1,11 +1,11 @@
 
-import connectLocal from './connectLocal';
-import localReducer, {getLocalStore} from './reducer';
-import { dispatchLocalAction } from './actions';
+import createConnectLocal from './createConnectLocal';
+import localReducer from './reducer';
+import createLocalThunkMiddleware from './createLocalThunkMiddleware';
 
 export {
+    createConnectLocal,
     localReducer,
-    dispatchLocalAction,
-    getLocalStore
+    createLocalThunkMiddleware
 }
-export default connectLocal;
+

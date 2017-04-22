@@ -3,14 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 
 import {connect } from 'react-redux';
-import PageWithLocalStore from './PageWithLocalStore';
+import ComponentWilLocalState from './ComponentWithLocalState';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      showPageWithLocalStore: false,
+      showComponentWilLocalState: false,
     }
   }
 
@@ -24,11 +24,11 @@ class App extends Component {
           <p>global counter: {this.props.counter}</p>
         </div>
         <div>
-          <button onClick={() => {this.setState({showPageWithLocalStore: true})}}>show local</button>
-          <button onClick={() => {this.setState({showPageWithLocalStore: false})}}>remove local</button>
+          <button onClick={() => {this.setState({showComponentWilLocalState: true})}}>show local</button>
+          <button onClick={() => {this.setState({showComponentWilLocalState: false})}}>remove local</button>
         </div>
-        {this.state.showPageWithLocalStore && 
-          <PageWithLocalStore />
+        {this.state.showComponentWilLocalState && 
+          <ComponentWilLocalState />
         }
       </div>
     );
