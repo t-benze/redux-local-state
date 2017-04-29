@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "webpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:t-benze/redux-local-state.git"
+  },
   "keywords": [
     "redux",
     "react",
