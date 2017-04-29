@@ -1,15 +1,16 @@
 {
-  "name": "redux-local-store",
+  "name": "redux-local-state",
   "version": "0.1.0",
-  "description": "Allow to create local store that lives with React component in redux store",
-  "main": "index.js",
+  "description": "Support creating local state that lives with React component in redux store",
+  "main": "dist/redux-local-state.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "webpack"
   },
   "keywords": [
     "redux",
     "react",
-    "local store"
+    "local state"
   ],
   "author": "Tang Benze",
   "license": "ISC",
@@ -19,10 +20,16 @@
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "react": "^15.5.4",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "webpack": "^2.4.1"
+  },
+  "peerDependencies": {
+    "react": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0"
   }
 }

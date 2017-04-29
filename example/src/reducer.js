@@ -1,18 +1,9 @@
-import { localReducer } from './lib';
-import { INCREMENT_COUNTER } from './actions';
+import counter from './counterReducer';
+import {reducer as local} from 'redux-local-state';
 
-const initialCounterState = 0;
-
-function counter(state = initialCounterState, action) {
-    switch (action.type) {
-        case INCREMENT_COUNTER:
-            return state + 1;
-        default:
-            return state;
-    }
-}
+export const selectLocalState = (state) => state.local;
 
 export default {
     counter,
-    localReducer
-};
+    local
+}

@@ -1,21 +1,14 @@
 const webpack = require('webpack');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+
 const path = require('path');
 const env  = require('yargs').argv.env; // use --env with webpack 2
 
-const libraryName = 'redux-local-store';
-let outputFile;
+const libraryName = 'redux-local-state';
+let outputFile = libraryName + '.js';
 
-const plugins = [];
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
-} else {
-  outputFile = libraryName + '.js';
-}
 
 const config = {
-  entry: __dirname + '/src/index.js',
+  entry: __dirname + '/redux-local-state/index.js',
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
