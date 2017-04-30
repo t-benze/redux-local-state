@@ -2,7 +2,12 @@ import React, { PureComponent } from "react";
 import connectLocal from "./connectLocal";
 
 import { incrementCounter, incrementCounterAsync } from "./counterActions";
+import { combineReducers } from "redux";
 import counterReducer from "./counterReducer";
+
+const localReducer = combineReducers({
+  counter: counterReducer
+});
 
 class ComponentWithLocalStore extends PureComponent {
   render() {
@@ -52,12 +57,10 @@ class ComponentWithLocalStore extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  globalCounter: state.counter
-});
-
 export default connectLocal(
-  mapStateToProps,
+  state => ({
+    globalCounter: state.counter
+  }),
   {
     incrementCounter,
     incrementCounterAsync
@@ -65,13 +68,13 @@ export default connectLocal(
   {
     mapStateToProps: state => {
       return {
-        localCounter: state
+        localCounter: state.counter
       };
     },
     mapDispatchToProps: {
       incrementLocalCounter: incrementCounter,
       incrementLocalCounterAsync: incrementCounterAsync
     },
-    reducer: counterReducer
+    reducer: localReducer
   }
 )(ComponentWithLocalStore);

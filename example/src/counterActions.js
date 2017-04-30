@@ -11,6 +11,7 @@ export function incrementCounter() {
 export function incrementCounterAsync() {
     return function (dispatch, getState) {
         setTimeout(() => { 
+            console.log(getState());
             if(getState().counter > 5) {
                 dispatch({
                     type: RESET_COUNTER

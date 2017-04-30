@@ -8,7 +8,7 @@ export default function(selectLocalState, extraArgs) {
             const localDispatch = (action) => {
                 return dispatch(dispatchLocalAction(localStateId, action));
             }
-            const localGetState = () => selectLocalState(getState())[localStateId];
+            const localGetState = () => selectLocalState(getState())[localStateId].state;
             action.localAction(localDispatch, localGetState, dispatch, getState);
         } else {
             return next(action);

@@ -68,10 +68,11 @@ import {createStore, applyMiddleware} from 'redux';
 
 const selectLocalState = (state) => state.local;
 const store = createStore(reducer, applyMiddleware(thunk, localThunk(selectLocalState)));
-
 ```
 
-
-
 ### Example
+
+`git clone https://github.com/t-benze/redux-local-state.git`
+
+`cd example && npm install && npm start`
 
