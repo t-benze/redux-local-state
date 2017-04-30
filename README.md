@@ -1,6 +1,6 @@
 ## redux-local-state
 
-A Redux add-on to support create local state for React Component in redux store, which lives only within the component's lifecycle. 
+A Redux add-on to support create local state for React Component in redux store, which lives only within the component's lifecycle. Check this [post](https://medium.com/@tangbenze/introduce-redux-local-state-to-your-react-app-9f96f18d4f35) for the rationale behind.
 
 ### Usage 
 
