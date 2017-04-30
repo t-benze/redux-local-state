@@ -1,6 +1,6 @@
 {
   "name": "redux-local-state",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Support creating local state that lives with React component in redux store",
   "main": "dist/redux-local-state.js",
   "scripts": {
