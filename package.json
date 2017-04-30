@@ -18,6 +18,10 @@
   ],
   "author": "Tang Benze",
   "license": "ISC",
+  "files": [
+    "src",
+    "dist"
+  ],
   "dependencies": {
     "invariant": "^2.2.2"
   },

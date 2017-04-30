@@ -2038,7 +2038,7 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
-invariant@^2.0.0, invariant@^2.2.0:
+invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -3190,6 +3190,12 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-local-state@^0.1.0:
+  version "0.1.0"
+  resolved "https://npm.garenanow.com/redux-local-state/-/redux-local-state-0.1.0.tgz#1e8c326dad411562be2cc50dbe4e06a768923b93"
+  dependencies:
+    invariant "^2.2.2"
 
 redux-thunk@^2.2.0:
   version "2.2.0"

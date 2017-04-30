@@ -13,7 +13,7 @@ import {localThunk} from 'redux-local-state';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(combineReducers(reducer), composeEnhancers(applyMiddleware(localThunk(selectLocalState), thunk)));
+const store = createStore(combineReducers(reducer), composeEnhancers(applyMiddleware(thunk, localThunk(selectLocalState))));
 
 
 ReactDOM.render(
